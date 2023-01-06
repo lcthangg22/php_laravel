@@ -1,5 +1,7 @@
 <?php
-class Employee {
+
+class Employee
+{
     private $table = "employees";
     private $Connection;
     private $id;
@@ -7,41 +9,64 @@ class Employee {
     private $Surname;
     private $email;
     private $phone;
-    public function __construct($Connection) {
+
+    public function __construct($Connection)
+    {
         $this->Connection = $Connection;
     }
-    public function getId() {
+
+    public function getId()
+    {
         return $this->id;
     }
-    public function setId($id) {
+
+    public function setId($id)
+    {
         $this->id = $id;
     }
-    public function getName() {
+
+    public function getName()
+    {
         return $this->Name;
     }
-    public function setName($Name) {
+
+    public function setName($Name)
+    {
         $this->Name = $Name;
     }
-    public function getSurname() {
+
+    public function getSurname()
+    {
         return $this->Surname;
     }
-    public function setSurname($Surname) {
+
+    public function setSurname($Surname)
+    {
         $this->Surname = $Surname;
     }
-    public function getEmail() {
+
+    public function getEmail()
+    {
         return $this->email;
     }
-    public function setEmail($email) {
+
+    public function setEmail($email)
+    {
         $this->email = $email;
     }
-    public function getphone() {
+
+    public function getphone()
+    {
         return $this->phone;
     }
-    public function setphone($phone) {
+
+    public function setphone($phone)
+    {
         $this->phone = $phone;
     }
 
-    public function save(){
+    public function save()
+    {
         $consultation = $this->Connection->prepare("INSERT INTO " . $this->table . " (Name,Surname,email,phone)
                                         VALUES (:Name,:Surname,:email,:phone)");
         $result = $consultation->execute(array(
@@ -54,7 +79,8 @@ class Employee {
         return $result;
     }
 
-    public function update(){
+    public function update()
+    {
         $consultation = $this->Connection->prepare("
             UPDATE " . $this->table . "
             SET
@@ -75,7 +101,8 @@ class Employee {
         return $resultado;
     }
 
-    public function getAll(){
+    public function getAll()
+    {
         $consultation = $this->Connection->prepare("SELECT id,Name,Surname,email,phone FROM " . $this->table);
         $consultation->execute();
 
@@ -84,7 +111,8 @@ class Employee {
         return $resultados;
     }
 
-    public function getById($id){
+    public function getById($id)
+    {
         $consultation = $this->Connection->prepare("SELECT id,Name,Surname,email,phone
                                                 FROM " . $this->table . "  WHERE id = :id");
         $consultation->execute(array(
@@ -135,4 +163,5 @@ class Employee {
 //        }
 //    }
 }
+
 ?>

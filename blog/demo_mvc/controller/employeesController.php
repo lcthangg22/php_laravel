@@ -81,9 +81,9 @@ class EmployeesController{
         header('Location: index.php');
     }
 
-    public function view($view,$datas){
+    public function view($vista,$datas){
         $data = $datas;
-        require_once  __DIR__ . "/../view/" . $view . "View.php";
+        require_once  __DIR__ . "/../view/" . $vista . "View.php";
     }
 }
 ?>
