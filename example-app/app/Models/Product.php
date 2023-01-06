@@ -18,9 +18,10 @@ class Product extends Model
     // Many To Many
     public function post()
     {
+        $name = 'abc';
+        echo "$name";
         return $this->belongsToMany(Post::class);
     }
-
 
     use HasFactory;
 }

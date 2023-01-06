@@ -28,7 +28,7 @@ class Post extends Model
     // Has Many Through
     public function users()
     {
-        return $this->hasManyThrough(Product::class,User::class);
+        return $this->hasManyThrough(Product::class, User::class);
     }
 
     use HasFactory;
