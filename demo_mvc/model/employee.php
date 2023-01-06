@@ -42,9 +42,9 @@ class Employee {
     }
 
     public function save(){
-        $consultation = $this->Connection->prepare("INSERT INTO " . $this->table . " (Name,Surname,email,phone)
+        $query = $this->Connection->prepare("INSERT INTO " . $this->table . " (Name,Surname,email,phone)
                                         VALUES (:Name,:Surname,:email,:phone)");
-        $result = $consultation->execute(array(
+        $result = $query->execute(array(
             "Name" => $this->Name,
             "Surname" => $this->Surname,
             "email" => $this->email,
@@ -55,7 +55,7 @@ class Employee {
     }
 
     public function update(){
-        $consultation = $this->Connection->prepare("
+        $query = $this->Connection->prepare("
             UPDATE " . $this->table . "
             SET
                 Name = :Name,
@@ -64,7 +64,7 @@ class Employee {
                 phone = :phone
             WHERE id = :id
         ");
-        $resultado = $consultation->execute(array(
+        $result = $query->execute(array(
             "id" => $this->id,
             "Name" => $this->Name,
             "Surname" => $this->Surname,
@@ -72,46 +72,46 @@ class Employee {
             "phone" => $this->phone
         ));
         $this->Connection = null;
-        return $resultado;
+        return $result;
     }
 
     public function getAll(){
-        $consultation = $this->Connection->prepare("SELECT id,Name,Surname,email,phone FROM " . $this->table);
-        $consultation->execute();
+        $query = $this->Connection->prepare("SELECT id,Name,Surname,email,phone FROM " . $this->table);
+        $query->execute();
 
-        $resultados = $consultation->fetchAll();
+        $result = $query->fetchAll();
         $this->Connection = null;
-        return $resultados;
+        return $result;
     }
 
     public function getById($id){
-        $consultation = $this->Connection->prepare("SELECT id,Name,Surname,email,phone
+        $query = $this->Connection->prepare("SELECT id,Name,Surname,email,phone
                                                 FROM " . $this->table . "  WHERE id = :id");
-        $consultation->execute(array(
+        $query->execute(array(
             "id" => $id
         ));
-        /*Fetch all of the remaining rows in the result set*/
-        $resultado = $consultation->fetchObject();
-        $this->Connection = null; //connection closure
-        return $resultado;
+
+        $result = $query->fetchObject();
+        $this->Connection = null;
+        return $result;
     }
 
 //    public function getBy($column,$value){
-//        $consultation = $this->Connection->prepare("SELECT id,Name,Surname,email,phone
+//        $query = $this->Connection->prepare("SELECT id,Name,Surname,email,phone
 //                                                FROM " . $this->table . " WHERE :column = :value");
-//        $consultation->execute(array(
+//        $query->execute(array(
 //            "column" => $column,
 //            "value" => $value
 //        ));
-//        $resultados = $consultation->fetchAll();
+//        $results = $query->fetchAll();
 //        $this->Connection = null;
-//        return $resultados;
+//        return $results;
 //    }
 //
 //    public function deleteById($id){
 //        try {
-//            $consultation = $this->Connection->prepare("DELETE FROM " . $this->table . " WHERE id = :id");
-//            $consultation->execute(array(
+//            $query = $this->Connection->prepare("DELETE FROM " . $this->table . " WHERE id = :id");
+//            $query->execute(array(
 //                "id" => $id
 //            ));
 //            $Connection = null;
@@ -123,8 +123,8 @@ class Employee {
 //
 //    public function deleteBy($column,$value){
 //        try {
-//            $consultation = $this->Connection->prepare("DELETE FROM " . $this->table . " WHERE :column = :value");
-//            $consultation->execute(array(
+//            $query = $this->Connection->prepare("DELETE FROM " . $this->table . " WHERE :column = :value");
+//            $query->execute(array(
 //                "column" => $value,
 //                "value" => $value,
 //            ));

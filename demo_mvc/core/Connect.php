@@ -24,8 +24,8 @@ class Connect
             $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             return $connection;
         } catch (PDOException $e) {
-            //We throw the exception
-            throw new Exception('Problem establishing the connection.');
+
+            throw new Exception($e->getMessage());
         }
     }
 

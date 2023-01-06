@@ -2,14 +2,10 @@
 
 //We load the controller and execute the action
 if (isset($_GET["controller"])) {
-    // We load the instance of the corresponding controller
     $controllerObj = loadController($_GET["controller"]);
-    //We launch the action
     launchAction($controllerObj);
 } else {
-    // We load the default controller instance
     $controllerObj = loadController("employees");
-    // We launch the action
     launchAction($controllerObj);
 }
 function loadController($controller)
