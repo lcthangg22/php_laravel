@@ -5,12 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Price extends Model
+class Member extends Model
 {
-    // One To One
-    public function product()
-    {
-        return $this->belongsTo(Product::class,'id');
-    }
     use HasFactory;
+
+    protected $fillable = ['name', 'price', 'active'];
+
 }

@@ -16,7 +16,7 @@ class Post extends Model
     // Many To Many
     public function product()
     {
-        return $this->belongsToMany(Product::class);
+        return $this->belongsToMany(Product::class,'products_posts');
     }
 
     // Has One Through

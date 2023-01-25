@@ -7,20 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
+    protected $fillable = ['name', 'description'];
+    public $timestamps = false;
 
     // One To One
     public function price()
     {
-        return $this->hasOne(Price::class);
-        // $price = Product::find(1)->price;
+        return $this->hasOne(Price::class,'id');
     }
 
     // Many To Many
     public function post()
     {
-        $name = 'abc';
-        echo "$name";
-        return $this->belongsToMany(Post::class);
+        return $this->belongsToMany(Post::class,'products_posts');
     }
 
     use HasFactory;
