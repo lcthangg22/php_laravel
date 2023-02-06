@@ -13,5 +13,18 @@ class Store extends Model
 
     public $timestamps = null;
 
+    public function staffs()
+    {
+        return $this->hasMany(Staff::class);
+    }
 
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'stocks', 'product_id', 'store_id');
+    }
+
+    public function stocks()
+    {
+        return $this->belongsToMany(Product::class, 'stocks', 'product_id', 'store_id');
+    }
 }

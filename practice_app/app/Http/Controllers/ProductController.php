@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Stock;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\Product as ProductResource;
 
 class ProductController extends Controller
 {
@@ -19,14 +19,10 @@ class ProductController extends Controller
             'message' => "Danh sách sản phẩm",
             'data' => JsonResource::collection($products)
         ];
-        return response()->json($arr, 200);
+
+        return response()->json($arr);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function getProductsByYear(int $year)
     {
         $products = Product::where('model_year', '=', $year)->paginate(10);
@@ -39,57 +35,42 @@ class ProductController extends Controller
         return response()->json($arr, 200);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function getProductsByStoreId(int $storeId)
     {
-        //
+        $products = Product::whereHas('stores', function ($query) use ($storeId) {
+            $query->where('id', $storeId);
+        })->paginate(10);
+
+        $arr = [
+            'status' => true,
+            'message' => "Success",
+            'data' => JsonResource::collection($products)
+        ];
+        return response()->json($arr);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function getQuantityByProductId(int $productId)
     {
-        //
+        $quantity = Stock::where('product_id', $productId);
+
+        $arr = [
+            'status' => true,
+            'message' => "Success",
+            'data' => JsonResource::collection($quantity)
+        ];
+        return response()->json($arr);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //

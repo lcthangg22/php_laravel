@@ -40,6 +40,8 @@ Route::group(['prefix' => 'stores'], function () {
     Route::put('/update/{storeId}', [StoreController::class, 'updateStore']);
 
     Route::delete('/delete/{storeId}', [StoreController::class, 'deleteStore']);
+
+    Route::get('/quantity/{storeId?}', [StoreController::class, 'getQuantityByStoreId']);
 });
 
 // Product
@@ -47,4 +49,8 @@ Route::group(['prefix' => 'stores'], function () {
 Route::get('/products', [ProductController::class, 'getAllProducts']);
 
 Route::get('/products/year/{year}', [ProductController::class, 'getProductsByYear']);
+
+Route::get('/products/store/{storeId}', [ProductController::class, 'getProductsByStoreId']);
+
+Route::get('/products/quantity/{productId}', [ProductController::class, 'getQuantityByProductId']);
 

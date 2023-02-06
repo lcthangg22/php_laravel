@@ -12,4 +12,10 @@ class Customer extends Model
     protected $fillable = ['first_name', 'last_name', 'phone', 'email', 'street', 'city', 'state', 'zip_code'];
 
     public $timestamps = null;
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
 }

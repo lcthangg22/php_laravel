@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\Product as ProductResource;
 use App\Models\Product;
+use App\Models\Stock;
 use App\Models\Store;
 use http\Env\Response;
 use Illuminate\Http\JsonResponse;
@@ -124,6 +125,19 @@ class StoreController extends Controller
             'status' => true,
             'message' => 'Xóa thành công',
         ];
+        return response()->json($arr);
+    }
+
+    public function getQuantityByStoreId(int $storeId)
+    {
+        $quantity = Stock::where('store_id', $storeId)->get();
+
+        $arr = [
+            'status' => true,
+            'message' => "Success",
+            'data' => JsonResource::collection($quantity)
+        ];
+
         return response()->json($arr);
     }
 }
